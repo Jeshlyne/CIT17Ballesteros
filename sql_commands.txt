@@ -1,0 +1,57 @@
+cd C:\xampp\mysql\bin
+./mysql -u root 
+
+CREATE DATABASE StudentRecord;
+USE DATABASES StudentRecord;
+
+CREATE TABLE student (
+    StudentID MEDIUMINT NOT NULL AUTO-INCREMENT, 
+    FirstName varchar(50) NOT NULL,
+    LastName varchar(50),
+    DateOfBirth date,
+    Email varchar(50),
+    Phone INT(20),
+    PRIMARY KEY(StudentID)
+
+);
+
+CREATE TABLE Course (
+    CourseID MEDIUMINT NOT NULL AUTO_INCREMENT,
+    CourseName varchar(100),
+    Credits INT(255),
+    PRIMARY KEY(CourseID)
+);
+
+CREATE TABLE Instructor (
+    InstructorID MEDIUMINT NOT NULL AUTO_INCREMENT,
+    FirstName varchar(50) NOT NULL,
+    LastName varchar(50),
+    Email varchar(50),
+    Phone INT(20),
+    PRIMARY KEY(StudentID)
+);
+
+CREATE TABLE Enrollment (
+    EnrollmentID MEDIUMINT NOT NULL AUTO_INCREMENT,
+    StudentID MEDIUMINT,
+    FOREIGN KEY (StudentID) REFERENCES Student(StudentID),
+    EnrollmentDate date,
+    Grade INT,
+    PRIMARY KEY(EnrollmentID)
+);
+
+INSERT INTO Student(StudentID, FirstName, LastName, DateOfBirth, Email, Phone)
+VALUES ("NULL", "Neil", "Repato", "2003-03-15", "nrr@gmail.com", "0927256254")
+SELECT * FROM Student;
+
+INSERT INTO Course(CourseID, CourseName, Credits)
+VALUES ("NULL", "CIT17", "4000");
+SELECT * FROM Course;
+
+INSERT INTO Instructor(InstructorID, FirstName, LastName, Email, Phone)
+VALUES ("NULL", "Prim", "Reyes", "leonard@gmail.com", "0927256254");
+SELECT * FROM Instructor;
+
+INSERT INTO Enrollment (EnrollmentID, StudentID, CourseID, EnrollmentDate, Grade)
+VALUES (NULL, NULL, NULL, '2023-12-31', '80');
+
