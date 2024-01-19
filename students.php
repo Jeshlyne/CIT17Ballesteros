@@ -115,5 +115,41 @@
 
             </table>
         </div>
+        <?php 
+            if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['deleteButton'])) {
+                $idToDelete = $_POST['deleteButton'];
+                
+                $sql = "DELETE FROM student WHERE StudentID=$idToDelete";
 
-    </body>
+                if ($conn->query($sql) == TRUE) {
+                    echo "record deleted successfully";
+                } else {
+                    echo "Error deleting record: " . $conn->error;
+                }
+
+                $sqlen = "DELETE FROM enrollment WHERE StudentID=$idToDelete";
+                if ($conn->query($sqlen) == TRUE) {
+                    echo "record deleted successfully";
+                } else {
+                    echo "Error deleting record: " . $conn->error;
+                }
+
+            }
+        ?>
+
+        <div class="card-style">
+            <?php
+            $selectitsql = "'SELECT StudentID, FirstName, LastName, Email FROM student";
+            $result = $conn->query($selecteditsql);
+            ?>
+            <h1>Edit Record</h1>
+            <form method="POST">
+                <label for="student_id">Select Student</label>
+                <select name="student_id" id="student_id">
+                    <?php
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo '<option value="' . $row['StudentID'] . '">' .$row['FirstName'] ." ". $row['LastName']." (". $row['Email'].") " . '<.option>';
+                        }
+                    }
+                    ?>
