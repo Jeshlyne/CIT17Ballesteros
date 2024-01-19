@@ -153,3 +153,58 @@
                         }
                     }
                     ?>
+                </select>
+                <input type="submit" value="Show Student Info">
+            </form>
+            <?php
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['student_id'])) {
+            $editsql_id = $_POST['student_id'];
+
+            $editsql = "SELECT * FROM student WHERE StudentID = $selected_id";
+            $result = $conn->query($editsql);
+
+            if ($result->num_rows > 0) {
+                $editstudent = $result->fetch_assoc();
+                ?>
+                <table style="width:40%">
+                <form method="POST" action="students.php">
+                <input type="hidden" name="estudent_id" value="<?php echo $editstudent['StudentID']; ?>">
+                <tr><td>First Name:</td>
+                 <td><input type="text" name="efirstname" value="<?php echo $editstudent['Firstname']; ?>"></td></tr>
+                 <tr><td>Last Name:</td>
+                 <td><input type="text" name="elastname" value="<?php echo $editstudent['Lastname']; ?>"></td></tr>
+                 <tr><td>Date of Birth:</td>
+                 <td><input type="text" name="edateofbirth value="<?php echo $editstudent['DateOfBirth']; ?>"></td></tr>
+                 <tr><td>Email:</td>
+                 <td><input type="text" name="eemail" value="<?php echo $editstudent['Email']; ?>"></td></tr>
+                 <tr><td>Phhone:</td>
+                 <td><input type="text" name="ephone" value="<?php echo $editstudent['Phone']; ?>"></td></tr>
+                </form>
+                </table>
+                <?php  
+            } else {
+                echo "No student found with this ID.";
+            } 
+        }
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['estudent_id'])) {
+            $studend_id = $_POST['estudent_id'];
+            $firstname = $_POST['efirstname'];
+            $lastname = $_POST['elastname'];
+            $dateofbirth = $_POST['edateofbirth'];
+            $email = $_POST['eemail'];
+            $phone = $_POST['ephone'];
+
+            $eupdatesql = "UPDATE student SET FirstName='$firstname', LastName='$lastname', DateOfBirth='$dateofbirth', Email='$email', Phone='phone' WHERE StudentID='$student_id'";
+
+            if ($conn->query($eupdatesql) == TRUE) {
+                echo "Student information updated successfully";
+            } else {
+                echo "Error updating student information: " . $conn->error;
+            }
+
+        }
+        ?>
+        </div>
+    </body>
+</html>  
