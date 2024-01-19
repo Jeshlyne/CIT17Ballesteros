@@ -37,10 +37,10 @@
                 <label for="coursecredits">Credits:</label>
                 <input type="text" naem="coursecredits" id="coursecredits" value="">
                 <input type="submit" value="Add Course" name="addcourse">
+
             </form>
 
         </div>
-        
 
     </div>
     </body>
